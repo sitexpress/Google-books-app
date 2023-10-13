@@ -57,7 +57,7 @@ export const SearchResultPage = () => {
                                                     {
                                                         isLoading
                                                             ? <Skeleton variant="rectangular" animation="wave" width={180} height={10} />
-                                                            : <a href={el.volumeInfo.previewLink} className={s.link}>
+                                                            : <a href={el.volumeInfo.previewLink} className={s.link} target="_blank">
                                                                     {
                                                                         el.volumeInfo.previewLink
                                                                             .replace('http://', '')
@@ -68,7 +68,7 @@ export const SearchResultPage = () => {
                                                     }
                                                 </Typography>
                                                 <Typography variant="h5" component="div">
-                                                    <a href={el.volumeInfo.previewLink} className={s.link}>
+                                                    <a href={el.volumeInfo.previewLink} className={s.link} target="_blank">
                                                         {
                                                             isLoading
                                                                 ? <Skeleton variant="rectangular" animation="wave" width={180} height={20} />
@@ -106,7 +106,7 @@ export const SearchResultPage = () => {
 
                                             <CardActions>
                                                 <Button size="small">
-                                                    <a href={el.volumeInfo.previewLink} className={s.btn_link}>
+                                                    <a href={el.volumeInfo.previewLink} className={s.btn_link} target="_blank">
                                                         {
                                                             isLoading
                                                                 ? <Skeleton variant="rectangular" animation="wave" width={100} height={20} />
