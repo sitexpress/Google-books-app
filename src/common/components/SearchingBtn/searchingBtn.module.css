@@ -1,0 +1,13 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 33px;
+    width: 71px;
+}
+
+.btn_icon {
+    stroke: white;
+    stroke-width: 1;
+    fontSize: 'large';
+}

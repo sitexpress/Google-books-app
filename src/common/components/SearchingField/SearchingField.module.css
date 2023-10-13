@@ -1,0 +1,32 @@
+.searchingField_main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    padding-top: 30px;
+    margin-bottom: 35px;
+}
+
+.searchingField_result {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap:10px;
+    margin-bottom:25px;
+}
+
+.mylibrary {
+    padding-top: 20px;
+    font-size: 14px;
+    color: #01579b;
+    cursor:pointer;
+}
+
+.mylibrary:hover {
+    text-decoration: underline;
+}
+
+
+
