@@ -99,6 +99,16 @@ export const fetchSearchingBookTC = createAsyncThunk(
     }
 )
 
+export const IsLoadingTC = createAsyncThunk('books/IsLoadingTC',
+    (isLoading:boolean, {rejectWithValue}) => {
+        try {
+                return {isLoading: isLoading}
+            } catch(error) {
+                return rejectWithValue(error)
+        }
+    }
+)
+
 const initialState = {
     books: {
         items: [] as ItemsType[],
@@ -116,7 +126,19 @@ const bookSearchingSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(fetchSearchingBookTC.pending, (state, action) => {
+        builder.addCase(IsLoadingTC.pending, (state) => {
+                state.books.isError = false
+                state.books.isLoading = true
+        })
+        builder.addCase(IsLoadingTC.fulfilled, (state) => {
+            state.books.isError = false
+            state.books.isLoading = false
+        })
+        builder.addCase(IsLoadingTC.rejected, (state) => {
+            state.books.isLoading = false
+            state.books.isError = true
+        })
+        builder.addCase(fetchSearchingBookTC.pending, (state) => {
                 state.books.isLoading = true
         })
         builder.addCase(fetchSearchingBookTC.fulfilled, (state, action) => {
