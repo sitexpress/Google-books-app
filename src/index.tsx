@@ -7,7 +7,8 @@ import {Provider} from "react-redux";
 import {store} from "./store/store";
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {ErrorPage} from "./common/components/ErrorPage/ErrorPage";
-import {SearchResultPage} from "./common/components/SearchResultPage/SearchResultPage";
+import {BooksResult} from "./common/components/BooksResult/BooksResult";
+import {SearchingResultPage} from "./common/components/SearchingResultPage/SearchingResultPage";
 
 const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/search-result-page",
-        element: <SearchResultPage />,
+        element: <SearchingResultPage/>
     },
 ]);
 

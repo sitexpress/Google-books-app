@@ -1,20 +1,33 @@
+.wrapper {
+
+}
 .searchingField_main {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap:10px;
     padding-top: 30px;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
 }
 
 .searchingField_result {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     gap:10px;
-    margin-bottom:25px;
+    margin-bottom: 20px;
+
+}
+
+.helper_text {
+    position: absolute;
+    bottom: -20px;
+    left: 5px;
+
 }
 
 .mylibrary {
@@ -27,6 +40,20 @@
 .mylibrary:hover {
     text-decoration: underline;
 }
+
+.filter_container {
+    display: flex;
+    justify-content: center;
+    gap:10px;
+    margin-bottom: 20px;
+}
+.filter_container_result {
+    display: flex;
+    justify-content: flex-start;
+    gap:10px;
+    margin-bottom: 20px;
+}
+
 
 
 

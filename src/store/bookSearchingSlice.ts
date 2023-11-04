@@ -2,94 +2,25 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import {instance} from "../common/api/common-api";
 import {AxiosError} from "axios";
 import {searchBooks} from "../common/components/SearchingField/SearchingField-api";
+import {BookSearchingSliceTypeExtended, ItemsType} from "../common/types/types";
 
-interface ReadingModelsType {
-    text: false,
-    image: false
-}
-interface PanelizationSummaryType {
-    containsEpubBubbles: boolean
-    containsImageBubbles: boolean
-}
-interface ImageLinksType {
-    smallThumbnail: string
-    thumbnail: string
-}
-export interface VolumeInfoType {
-    title: string
-    authors: string[]
-    publishedDate: string
-    readingModes: ReadingModelsType
-    pageCount: number
-    printType: string
-    maturityRating: string
-    allowAnonLogging: boolean
-    contentVersion: string
-    panelizationSummary: PanelizationSummaryType
-    imageLinks: ImageLinksType
-    language: string
-    previewLink: string
-    infoLink: string
-    canonicalVolumeLink: string
-}
-interface SaleInfoType {
-        country: string
-        saleability: string
-        isEbook: false
-}
-interface EpubType {
-    "isAvailable": boolean
-}
-interface PdfType {
-    "isAvailable": boolean
-}
-interface AccessInfoType {
-        country: string
-        viewability: string
-        embeddable: boolean
-        publicDomain: boolean
-        textToSpeechPermission: string
-        epub: EpubType
-        pdf: PdfType
-        webReaderLink: string
-        accessViewStatus: string
-        quoteSharingAllowed: boolean
-}
-
-interface SearchInfoType {
-    textSnippet: string
-}
-export interface ItemsType {
-        kind: string
-        id: string
-        etag: string
-        selfLink: string
-        volumeInfo: VolumeInfoType
-        saleInfo: SaleInfoType
-        accessInfo: AccessInfoType
-        searchInfo: SearchInfoType
-}
-export interface BookSearchingSliceType {
-    kind: string
-    totalItems: number
-    items: ItemsType[]
-}
-
-export interface BookSearchingSliceTypeExtended extends BookSearchingSliceType {
-    page: number
-    isLoading: boolean
-    isError: null | boolean
-}
 
 export const fetchSearchingBookTC = createAsyncThunk(
     'books/searchingBookThunk',
-    async (payload:{searchingBooksValue:string, page:number}, {rejectWithValue}) => {
-        try{
-            const {searchingBooksValue, page} = payload
-            const res = await searchBooks.search(searchingBooksValue, page)
+    async (payload:{
+                                    searchingBooksValue:string,
+                                    pageNum:number,
+                                    relevance:'relevance' | 'newest',
+                                    category:'all' | 'art' | 'biography' | 'computer' | 'history' | 'medical' | 'poetry',
+                                    pagination: boolean
+                                } , {rejectWithValue}) => {
+        try {
+            const {searchingBooksValue, pageNum, relevance, category, pagination} = payload
+            const res = await searchBooks.search(searchingBooksValue, pageNum, relevance, category)
                 if (res.status === 200) {
                     console.log('Status 200:', {books: res})
-                    return { books: res }
+                    console.log('Status 300:', {pagination})
+                    return { books: res, query: searchingBooksValue, pagination }
                 } else {
                     return rejectWithValue({error: res})
                 }
@@ -99,12 +30,35 @@ export const fetchSearchingBookTC = createAsyncThunk(
     }
 )
 
-export const IsLoadingTC = createAsyncThunk('books/IsLoadingTC',
+export const isLoadingTC = createAsyncThunk(
+    'books/IsLoadingTC',
     (isLoading:boolean, {rejectWithValue}) => {
         try {
-                return {isLoading: isLoading}
+                return {isLoading}
             } catch(error) {
                 return rejectWithValue(error)
+        }
+    }
+)
+
+export const booksRelevance = createAsyncThunk(
+    'books/booksRelevance',
+    (booksRelevance:'relevance' | 'newest', {rejectWithValue}) => {
+        try {
+            return {booksRelevance}
+        } catch(error) {
+            return rejectWithValue(error)
+        }
+    }
+)
+
+export const booksCategory = createAsyncThunk(
+    'books/booksCategory',
+    (booksCategory:'all' | 'art' | 'biography' | 'computer' | 'history' | 'medical' | 'poetry', {rejectWithValue}) => {
+        try {
+            return {booksCategory}
+        } catch(error) {
+            return rejectWithValue(error)
         }
     }
 )
@@ -113,10 +67,13 @@ const initialState = {
     books: {
         items: [] as ItemsType[],
         kind: '',
-        totalItems: 0,
+        totalItems: null,
         page:0,
         isLoading: false,
-        isError: null,
+        isError: false,
+        query: '',
+        booksRelevance: 'relevance',
+        booksCategory: 'all'
     } as BookSearchingSliceTypeExtended
 
 }
@@ -126,18 +83,42 @@ const bookSearchingSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(IsLoadingTC.pending, (state) => {
+        builder.addCase(isLoadingTC.pending, (state) => {
                 state.books.isError = false
                 state.books.isLoading = true
         })
-        builder.addCase(IsLoadingTC.fulfilled, (state) => {
+        builder.addCase(isLoadingTC.fulfilled, (state) => {
             state.books.isError = false
             state.books.isLoading = false
         })
-        builder.addCase(IsLoadingTC.rejected, (state) => {
+        builder.addCase(isLoadingTC.rejected, (state) => {
             state.books.isLoading = false
             state.books.isError = true
         })
+
+        builder.addCase(booksRelevance.pending, (state) => {
+            state.books.isError = false
+            state.books.isLoading = false
+        })
+        builder.addCase(booksRelevance.fulfilled, (state, action) => {
+            state.books.isError = false
+            state.books.booksRelevance = action.payload.booksRelevance
+        })
+        builder.addCase(booksRelevance.rejected, (state) => {
+            state.books.isError = true
+        })
+
+        builder.addCase(booksCategory.pending, (state) => {
+            state.books.isError = false
+        })
+        builder.addCase(booksCategory.fulfilled, (state, action) => {
+            state.books.isError = false
+            state.books.booksCategory = action.payload.booksCategory
+        })
+        builder.addCase(booksCategory.rejected, (state) => {
+            state.books.isError = true
+        })
+
         builder.addCase(fetchSearchingBookTC.pending, (state) => {
                 state.books.isLoading = true
         })
@@ -146,9 +127,24 @@ const bookSearchingSlice = createSlice({
                 state.books.isError = false
                 state.books.isLoading = false
                 state.books.page = action.payload.books.data.page
-                state.books.items = action.payload.books.data.items
                 state.books.kind = action.payload.books.data.kind
                 state.books.totalItems = action.payload.books.data.totalItems
+                state.books.query = action.payload.query
+                // if (action.payload.pagination === false) {
+                //     state.books.items.splice(0, state.books.items.length - 1)
+                // }
+
+                if (action.payload.books.data.items && action.payload.pagination === true) {
+                    // state.books.items.push(...[])
+                    state.books.items.push(...action.payload.books.data.items)
+
+                }
+                if (action.payload.books.data.items && action.payload.pagination === false) {
+                    state.books.items.splice(0, state.books.items.length - 1)
+                    state.books.items.push(...action.payload.books.data.items)
+
+                }
+
             }
         })
         builder.addCase(fetchSearchingBookTC.rejected, (state, action) => {
