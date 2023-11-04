@@ -11,6 +11,9 @@
     text-decoration: none;
     color: #42a5f5;
 }
+.btn_main_page {
+    margin-bottom: 5px;
+}
 .total_text {
     margin-bottom: 20px;
     width: 100%;
