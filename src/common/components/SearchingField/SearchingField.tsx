@@ -1,61 +1,87 @@
-import * as React from 'react'
-import {ChangeEvent, KeyboardEvent, FocusEvent, useState, memo, useEffect} from 'react'
+import * as React from "react";
+import {
+    ChangeEvent,
+    KeyboardEvent,
+    FocusEvent,
+    useState,
+    memo,
+    useEffect,
+} from "react";
 
-import TextField from '@mui/material/TextField'
-import {SearchingBtn} from '../SearchingBtn/SearchingBtn'
-import {ClearBtn} from "../ClearBtn/ClearBtn";
+import TextField from "@mui/material/TextField";
+import {SearchingBtn} from "../SearchingBtn";
 
-import s from './SearchingField.module.css'
+import s from "./SearchingField.module.css";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {fetchSearchingBookTC} from "../../../store/bookSearchingSlice";
-import {SelectComponent} from "../SelectComponent/SelectComponent";
-
+import {SelectComponent} from "../SelectComponent";
+import {ClearBtn} from "../ClearBtn";
+import {BooksCategoryType, BooksRelevanceType} from "../../types/types";
 
 interface SearchingFieldType {
-    location: 'main' | 'search-result-page'
+    location: "main" | "search-result-page";
 }
-export const SearchingField:React.FC<SearchingFieldType> = memo(({
-                                                                location,
-                                                                ...other
-}) => {
 
-    const [inputError, setInputError] = useState(false)
-    const [inputValue, setInputValue] = useState('')
-    const dispatch = useAppDispatch()
-    const relevance = useAppSelector<'relevance' | 'newest'>(state => state.books.books.booksRelevance)
-    const category = useAppSelector<'all' | 'art' | 'biography' | 'computer' | 'history' | 'medical' | 'poetry'>(state => state.books.books.booksCategory)
+export const SearchingField: React.FC<SearchingFieldType> = memo(
+    ({location, ...other}) => {
+        const [inputError, setInputError] = useState(false);
+        const [inputValue, setInputValue] = useState("");
+        const dispatch = useAppDispatch();
+        const relevance = useAppSelector<BooksRelevanceType>(
+            (state) => state.books.books.booksRelevance,
+        );
+        const category = useAppSelector<BooksCategoryType>(
+            (state) => state.books.books.booksCategory);
 
-    const onSetInputValueHandler = (e:ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            setInputError(false)
-            setInputValue(e.currentTarget.value)
-    }
+        const onSetInputValueHandler = (
+            e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        ) => {
+            setInputError(false);
+            setInputValue(e.currentTarget.value);
+        };
 
-    const onSetInputValueKeyDownHandler = (e:KeyboardEvent<HTMLImageElement>) => {
-
-        if(e.key === 'Enter' && !!inputValue) {
-            const pageNum = 0
-            const searchingBooksValue = inputValue.trim()
-            if (!!searchingBooksValue) {
-                setInputError(false)
-                dispatch(fetchSearchingBookTC({searchingBooksValue, pageNum, relevance, category, pagination: false}))
-            } else {
-                setInputError(true)
+        const onSetInputValueKeyDownHandler = (
+            e: KeyboardEvent<HTMLImageElement>,
+        ) => {
+            if (e.key === "Enter" && !!inputValue) {
+                const pageNum = 0;
+                const searchingBooksValue = inputValue.trim();
+                if (!!searchingBooksValue) {
+                    setInputError(false);
+                    dispatch(
+                        fetchSearchingBookTC({
+                            searchingBooksValue,
+                            pageNum,
+                            relevance,
+                            category,
+                            pagination: false,
+                        }),
+                    );
+                } else {
+                    setInputError(true);
+                }
             }
-        }
 
-        if(e.key === 'Enter' && !!inputValue === false) {
-            setInputError(true)
-        }
-    }
+            if (e.key === "Enter" && !!inputValue === false) {
+                setInputError(true);
+            }
+        };
 
-    const onFocusInputValueHandler = (e: FocusEvent<HTMLInputElement>) => {
-        if (!e.currentTarget.value) {
-            setInputError(false)
-        }
-    }
+        const onFocusInputValueHandler = (e: FocusEvent<HTMLInputElement>) => {
+            if (!e.currentTarget.value) {
+                setInputError(false);
+            }
+        };
 
-    return <div className={s.wrapper}>
-                <div className={location === 'main' ? s.searchingField_main : s.searchingField_result}>
+        return (
+            <div className={s.wrapper}>
+                <div
+                    className={
+                        location === "main"
+                            ? s.searchingField_main
+                            : s.searchingField_result
+                    }
+                >
                     <TextField
                         style={{width: 665}}
                         value={inputValue}
@@ -66,27 +92,46 @@ export const SearchingField:React.FC<SearchingFieldType> = memo(({
                         onChange={onSetInputValueHandler}
                         onKeyDown={onSetInputValueKeyDownHandler}
                         onBlur={onFocusInputValueHandler}
-                        helperText={inputError && <span className={s.helper_text}>Введите текст!</span>}
-                        InputProps={{endAdornment: !!inputValue && <ClearBtn setInputValue={setInputValue}/>}}
+                        helperText={
+                            inputError && (
+                                <span className={s.helper_text}>Введите текст!</span>
+                            )
+                        }
+                        InputProps={{
+                            endAdornment: !!inputValue && (
+                                <ClearBtn setInputValue={setInputValue}/>
+                            ),
+                        }}
                     />
-                    <SearchingBtn inputValue={inputValue}
-                                  inputError={inputError}
-                                  setInputError={setInputError}
-                                  setInputValue={setInputValue}
+                    <SearchingBtn
+                        inputValue={inputValue}
+                        inputError={inputError}
+                        setInputError={setInputError}
+                        setInputValue={setInputValue}
                     />
                 </div>
-                <div className={location === 'main' ? s.filter_container : s.filter_container_result}>
-                    <SelectComponent selectType={'category'}/>
-                    <SelectComponent selectType={'relevance'}/>
+                <div
+                    className={
+                        location === "main" ? s.filter_container : s.filter_container_result
+                    }
+                >
+                    <SelectComponent selectType={"category"}/>
+                    <SelectComponent selectType={"relevance"}/>
                 </div>
-                {
-                    location === 'main' &&
+                {location === "main" && (
                     <div>
-                        <div><p>Search the world's most comprehensive index of full-text books.</p></div>
-                        <div className={s.mylibrary}> <p>My library. (in developing)</p></div>
+                        <div>
+                            <p>
+                                Search the world's most comprehensive index of full-text books.
+                            </p>
+                        </div>
+                        <div className={s.mylibrary}>
+                            {" "}
+                            <p>My library. (in developing)</p>
+                        </div>
                     </div>
-                }
+                )}
             </div>
-
-})
-
+        );
+    },
+);

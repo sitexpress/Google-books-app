@@ -3,7 +3,7 @@
   overflow-y: hidden;
   height: 100%;
   width: 100%;
-  background: rgba(0,0,0, 0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .liner_bar {
@@ -35,13 +35,9 @@
   flex-direction: column;
   justify-content: center;
   min-height: 100vh;
-
 }
 
 .app_heading {
   font-size: 38px;
   color: #1976d2;
 }
-
-
-
