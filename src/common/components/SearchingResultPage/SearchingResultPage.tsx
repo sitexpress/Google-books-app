@@ -6,7 +6,7 @@ import { SearchingField } from "../SearchingField/SearchingField";
 import { useAppSelector } from "../../../store/store";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import s from "./SearchingResultPage.module.css";
+import s from "./SearchingResultPage.module.scss";
 import { BooksResult } from "../BooksResult";
 
 export const SearchingResultPage = () => {
@@ -22,7 +22,7 @@ export const SearchingResultPage = () => {
       {isLoading && <CircularProgress className={s.circ_bar} />}
       <CssBaseline />
       <div className={s.search_result_wrapper}>
-        <Container maxWidth="lg" className={s.search_result_container}>
+        <Container maxWidth="lg" sx={{minHeight: '100vh'}} className={s.search_result_container}>
           <div>
             <a href="/" className={s.btn_link}>
               <Button size={"medium"} className={s.btn_main_page}>

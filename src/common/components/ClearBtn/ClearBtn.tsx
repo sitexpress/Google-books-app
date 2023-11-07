@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import s from "./ClearBtn.module.css";
+import s from "./ClearBtn.module.scss";
 
 interface ClearBtnType {
   setInputValue: (value: string) => void;

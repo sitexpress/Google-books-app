@@ -1,5 +1,5 @@
-.wrapper {
-}
+@import "src/styles/mui-palette";
+
 .searchingField_main {
   position: relative;
   display: flex;
@@ -12,26 +12,19 @@
 }
 
 .searchingField_result {
-  position: relative;
-  display: flex;
-  flex-direction: row;
+  composes: searchingField_main;
   justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  padding-top: 10px;
+}
+
+.textfield {
+  width: 665px;
 }
 
 .helper_text {
   position: absolute;
   bottom: -20px;
   left: 5px;
-}
-
-.mylibrary {
-  padding-top: 20px;
-  font-size: 14px;
-  color: #01579b;
-  cursor: pointer;
 }
 
 .mylibrary:hover {
@@ -44,9 +37,15 @@
   gap: 10px;
   margin-bottom: 20px;
 }
+
 .filter_container_result {
-  display: flex;
+  composes: filter_container;
   justify-content: flex-start;
-  gap: 10px;
-  margin-bottom: 20px;
+}
+
+.mylibrary {
+  padding-top: 20px;
+  font-size: 14px;
+  color: $palette_primary_light;
+  cursor: pointer;
 }

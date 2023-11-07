@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import CircularProgress from "@mui/material/CircularProgress";
 import { SnackBarComponent } from "../SnackBar";
-import s from "./App.module.css";
+import s from "./App.module.scss";
 import { BookSearchingSliceTypeExtended } from "../../types/types";
 import { isLoadingTC } from "../../../store/bookSearchingSlice";
 import { SearchingField } from "../SearchingField";
@@ -30,7 +30,7 @@ export const App = () => {
       ) : (
         <div className={s.app_wrapper}>
           <div className={s.app}>
-            <div className={s.app_container}>
+            <div className={s.app_searchingfield}>
               <h1 className={s.app_heading}>My books:</h1>
               <SearchingField location={"main"} />
             </div>

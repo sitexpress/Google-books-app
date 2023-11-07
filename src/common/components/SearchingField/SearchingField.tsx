@@ -11,7 +11,7 @@ import {
 import TextField from "@mui/material/TextField";
 import {SearchingBtn} from "../SearchingBtn";
 
-import s from "./SearchingField.module.css";
+import s from "./SearchingField.module.scss";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {fetchSearchingBookTC} from "../../../store/bookSearchingSlice";
 import {SelectComponent} from "../SelectComponent";
@@ -73,65 +73,61 @@ export const SearchingField: React.FC<SearchingFieldType> = memo(
             }
         };
 
-        return (
-            <div className={s.wrapper}>
-                <div
-                    className={
-                        location === "main"
-                            ? s.searchingField_main
-                            : s.searchingField_result
+        return <>
+            <div className={
+                location === "main"
+                    ? s.searchingField_main
+                    : s.searchingField_result
+            }
+            >
+                <TextField
+                    className={s.textfield}
+                    value={inputValue}
+                    error={inputError}
+                    id="outlined-error-helper-text"
+                    label="Введите название книги"
+                    size="small"
+                    onChange={onSetInputValueHandler}
+                    onKeyDown={onSetInputValueKeyDownHandler}
+                    onBlur={onFocusInputValueHandler}
+                    helperText={
+                        inputError && (
+                            <span className={s.helper_text}>Введите текст!</span>
+                        )
                     }
-                >
-                    <TextField
-                        style={{width: 665}}
-                        value={inputValue}
-                        error={inputError}
-                        id="outlined-error-helper-text"
-                        label="Введите название книги"
-                        size="small"
-                        onChange={onSetInputValueHandler}
-                        onKeyDown={onSetInputValueKeyDownHandler}
-                        onBlur={onFocusInputValueHandler}
-                        helperText={
-                            inputError && (
-                                <span className={s.helper_text}>Введите текст!</span>
-                            )
-                        }
-                        InputProps={{
-                            endAdornment: !!inputValue && (
-                                <ClearBtn setInputValue={setInputValue}/>
-                            ),
-                        }}
-                    />
-                    <SearchingBtn
-                        inputValue={inputValue}
-                        inputError={inputError}
-                        setInputError={setInputError}
-                        setInputValue={setInputValue}
-                    />
-                </div>
-                <div
-                    className={
-                        location === "main" ? s.filter_container : s.filter_container_result
-                    }
-                >
-                    <SelectComponent selectType={"category"}/>
-                    <SelectComponent selectType={"relevance"}/>
-                </div>
-                {location === "main" && (
-                    <div>
-                        <div>
-                            <p>
-                                Search the world's most comprehensive index of full-text books.
-                            </p>
-                        </div>
-                        <div className={s.mylibrary}>
-                            {" "}
-                            <p>My library. (in developing)</p>
-                        </div>
-                    </div>
-                )}
+                    InputProps={{
+                        endAdornment: !!inputValue && (
+                            <ClearBtn setInputValue={setInputValue}/>
+                        ),
+                    }}
+                />
+                <SearchingBtn
+                    inputValue={inputValue}
+                    inputError={inputError}
+                    setInputError={setInputError}
+                    setInputValue={setInputValue}
+                />
             </div>
-        );
+            <div
+                className={
+                    location === "main" ? s.filter_container : s.filter_container_result
+                }
+            >
+                <SelectComponent selectType={"category"}/>
+                <SelectComponent selectType={"relevance"}/>
+            </div>
+            {location === "main" && (
+                <div>
+                    <div>
+                        <p>
+                            Search the world's most comprehensive index of full-text books.
+                        </p>
+                    </div>
+                    <div className={s.mylibrary}>
+                        <p>My library. (in developing)</p>
+                    </div>
+                </div>
+            )}
+        </>
     },
 );

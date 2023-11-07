@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper";
 import { fetchSearchingBookTC } from "../../../store/bookSearchingSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 
-import s from "./BooksResult.module.css";
+import s from "./BooksResult.module.scss";
 import noImage from "../../../assets/No-Image-Placeholder.png";
 import {BooksCategoryType, BooksRelevanceType, ItemsType} from "../../types/types";
 import { v4 } from "uuid";
@@ -52,8 +52,7 @@ export const BooksResult = memo(() => {
     setPageNumState(newPageNumState);
   };
 
-  return (
-    <>
+  return <>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         {totalItems === 0 || totalItems === null ? (
           <Grid className={s.grid_empty_result} xs={12}>
@@ -159,5 +158,4 @@ export const BooksResult = memo(() => {
         </Grid>
       )}
     </>
-  );
 });

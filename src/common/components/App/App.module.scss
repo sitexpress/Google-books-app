@@ -1,0 +1,36 @@
+.app_wrapper {
+  position: absolute;
+  min-height: 100%;
+  width: 100%;
+}
+
+.app {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.app_searchingfield {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app_heading {
+  font-size: 38px;
+  color: #1976d2;
+}
+
+.circ_bar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+}
+

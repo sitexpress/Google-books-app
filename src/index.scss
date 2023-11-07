@@ -1,21 +1,12 @@
-/** {*/
-/*  padding: 0px;*/
-/*  margin: 0px;*/
-/*  border: none;*/
-/*}*/
+@import "src/styles/_mui-palette";
 
-/**,*/
-/**::before,*/
-/**::after {*/
-/*  box-sizing: border-box;*/
-/*}*/
-
-/*Обнуление*/
+/*--Обнуление--*/
 * {
   padding: 0;
   margin: 0;
   border: 0;
 }
+
 *,
 *:before,
 *:after {
@@ -23,10 +14,12 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 :focus,
 :active {
   outline: none;
 }
+
 a:focus,
 a:active {
   outline: none;
@@ -49,8 +42,10 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  overflow-y: overlay;
 }
+
+
+
 input,
 button,
 textarea {
@@ -60,23 +55,29 @@ textarea {
 input::-ms-clear {
   display: none;
 }
+
 button {
   cursor: pointer;
 }
+
 button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
+
 a,
 a:visited {
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: none;
 }
+
 ul li {
   list-style: none;
 }
+
 img {
   vertical-align: top;
 }
@@ -90,6 +91,19 @@ h6 {
   font-size: inherit;
   font-weight: 400;
 }
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+}
+::-webkit-scrollbar-thumb {
+  width: 10px;
+  height: 30px;
+  background: $palette_info_light;
+}
+::-webkit-scrollbar {
+  width: 5px;
+}
+
 
 body {
   margin: 0;

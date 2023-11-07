@@ -1,7 +1,7 @@
 import React, { KeyboardEvent } from "react";
 import Button from "@mui/material/Button";
 import SearchIcon from "@mui/icons-material/Search";
-import s from "./searchingBtn.module.css";
+import s from "./searchingBtn.module.scss";
 import { fetchSearchingBookTC } from "../../../store/bookSearchingSlice";
 import { useAppDispatch, useAppSelector } from "../../../store/store";
 import {BooksCategoryType, BooksRelevanceType} from "../../types/types";
@@ -45,6 +45,7 @@ export const SearchingBtn: React.FC<SearchingBtnType> = ({
       );
     }
   };
+
   return (
     <Button
       className={s.btn}

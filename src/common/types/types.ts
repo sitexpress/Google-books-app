@@ -1,3 +1,5 @@
+// -- Google API's types --
+
 interface ReadingModelsType {
   text: false;
   image: false;
@@ -50,7 +52,6 @@ interface AccessInfoType {
   accessViewStatus: string;
   quoteSharingAllowed: boolean;
 }
-
 interface SearchInfoType {
   textSnippet: string;
 }
@@ -69,6 +70,8 @@ export interface BookSearchingSliceType {
   totalItems: number | null;
   items: ItemsType[];
 }
+
+// -- My additional types which extend the Google API's types --
 
 export type BooksCategoryType =
       | "all"
