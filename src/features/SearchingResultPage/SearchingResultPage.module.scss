@@ -1,0 +1,29 @@
+.search_result_wrapper {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.search_result_container {
+  padding-top: 20px;
+}
+
+.btn_link {
+  text-decoration: none;
+  color: #42a5f5;
+}
+
+.total_text {
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.circ_bar {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+  z-index: 10;
+}

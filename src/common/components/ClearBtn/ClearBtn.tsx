@@ -1,16 +1,13 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import ClearIcon from "@mui/icons-material/Clear";
+import React from "react"
+import Button from "@mui/material/Button"
+import ClearIcon from "@mui/icons-material/Clear"
 
-import s from "./ClearBtn.module.scss";
+import s from "./ClearBtn.module.scss"
 
 interface ClearBtnType {
-  setInputValue: (value: string) => void;
+  setInputValue: (value: string) => void
 }
-export const ClearBtn: React.FC<ClearBtnType> = ({
-  setInputValue,
-  ...other
-}) => {
+export const ClearBtn: React.FC<ClearBtnType> = ({ setInputValue, ...other }) => {
   return (
     <Button
       className={s.btn}
@@ -21,5 +18,5 @@ export const ClearBtn: React.FC<ClearBtnType> = ({
     >
       <ClearIcon className={s.btn_icon} />
     </Button>
-  );
-};
+  )
+}

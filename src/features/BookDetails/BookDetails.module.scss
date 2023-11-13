@@ -1,0 +1,60 @@
+@import "../../styles/_mui-palette";
+
+.container {
+  padding-top: 20px;
+}
+.grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  min-width: 640px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  margin-bottom: 40px;
+}
+
+.text {
+  padding-right: 20px;
+}
+
+.img {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  & img {
+    height: 200px;
+    width: auto;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 0px 5px $palette_info_light;
+    }
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: grey;
+}
+.title {
+  color: black;
+}
+
+.autors {
+  margin-bottom: 10px;
+  text-align: right;
+}
+
+.year {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.descr {
+  text-align: justify;
+}
+
+.btn_main_page {
+  margin-bottom: 20px;
+}

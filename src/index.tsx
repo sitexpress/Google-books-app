@@ -1,36 +1,39 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.scss";
-import reportWebVitals from "./reportWebVitals";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ErrorPage } from "./common/components/ErrorPage";
-import { SearchingResultPage } from "./common/components/SearchingResultPage";
-import { App } from "./common/components/App";
+import React from "react"
+import ReactDOM from "react-dom/client"
+import "./index.module.scss"
+import reportWebVitals from "./reportWebVitals"
+import { Provider } from "react-redux"
+import { store } from "./store/store"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { ErrorPage } from "./features/ErrorPage"
+import { SearchingResultPage } from "./features/SearchingResultPage"
+import { App } from "./app"
+import { BookDetails } from "./features/BookDetails"
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorPage />
   },
   {
     path: "/search-result-page",
-    element: <SearchingResultPage />,
+    element: <SearchingResultPage />
   },
-]);
+  {
+    path: "/book-details-page",
+    element: <BookDetails />
+  }
+])
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <Provider store={store}>
     <RouterProvider router={router} />
-  </Provider>,
-);
+  </Provider>
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reportWebVitals()

@@ -1,0 +1,24 @@
+@include widescreen-xxl {}
+@include desktop-xl {}
+@include laptop-lg {}
+@include tablet-md {
+  .box {
+    min-width: 200px;
+  }
+  .box_select {
+    min-width: 200px;
+    height: 40px;
+  }
+}
+@include mobile-sm {
+  .box {
+    min-width: 130px;
+  }
+  .box_select {
+    min-width: 135px;
+    height: 40px;
+  }
+}
+@include mobile-xs {}
+@include mobile-xxs {}
+

@@ -1,1 +1,1 @@
-export { SnackBarComponent } from "./SnackBar";
+export { SnackBarComponent } from "./SnackBar"

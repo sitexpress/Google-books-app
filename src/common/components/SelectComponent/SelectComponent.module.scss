@@ -1,0 +1,13 @@
+@import "src/styles/index";
+
+.box {
+  min-width: 220px;
+}
+
+.box_select {
+  min-width: 220px;
+  height: 40px;
+}
+
+@import "SelectComponent-media";
+

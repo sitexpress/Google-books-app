@@ -1,38 +1,33 @@
-import * as React from "react";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Snackbar from "@mui/material/Snackbar";
-import MuiAlert, { AlertProps } from "@mui/material/Alert";
-import { useAppSelector } from "../../../store/store";
-import { useEffect } from "react";
+import * as React from "react"
+import Stack from "@mui/material/Stack"
+import Button from "@mui/material/Button"
+import Snackbar from "@mui/material/Snackbar"
+import MuiAlert, { AlertProps } from "@mui/material/Alert"
+import { useAppSelector } from "../../../store/store"
+import { useEffect } from "react"
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  },
-);
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
+})
 
 export const SnackBarComponent = () => {
-  const isError = useAppSelector<boolean>((state) => state.books.books.isError);
-  const [open, setOpen] = React.useState(false);
+  const isError = useAppSelector<boolean>((state) => state.books.books.isError)
+  const [open, setOpen] = React.useState(false)
 
   const handleClick = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string,
-  ) => {
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
-      return;
+      return
     }
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
   useEffect(() => {
-    setOpen(isError);
-  }, [isError]);
+    setOpen(isError)
+  }, [isError])
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
@@ -48,5 +43,5 @@ export const SnackBarComponent = () => {
       {/*<Alert severity="info">This is an information message!</Alert>*/}
       {/*<Alert severity="success">This is a success message!</Alert>*/}
     </Stack>
-  );
-};
+  )
+}

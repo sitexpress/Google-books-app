@@ -1,0 +1,56 @@
+@import "src/styles/index";
+
+.searchingField_main {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-top: 30px;
+  margin-bottom: 20px;
+}
+
+.searchingField_result {
+  composes: searchingField_main;
+  justify-content: flex-start;
+  padding-top: 10px;
+}
+
+.textfield {
+  width: 665px;
+  //width: 330px;
+}
+
+.helper_text {
+  position: absolute;
+  bottom: -20px;
+  left: 5px;
+}
+
+.mylibrary:hover {
+  text-decoration: underline;
+}
+
+.filter_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter_container_result {
+  composes: filter_container;
+  justify-content: flex-start;
+}
+
+.mylibrary {
+  padding-top: 20px;
+  font-size: 14px;
+  color: $palette_primary_light;
+  cursor: pointer;
+}
+
+@import "SearchingField-media";
+
+

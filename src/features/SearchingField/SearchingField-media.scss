@@ -1,0 +1,15 @@
+@include widescreen-xxl {}
+@include desktop-xl {}
+@include laptop-lg {}
+@include tablet-md {
+  .textfield {
+    width: 330px;
+  }
+}
+@include mobile-sm {
+  .textfield {
+    width: 200px;
+  }
+}
+@include mobile-xs {}
+@include mobile-xxs {}

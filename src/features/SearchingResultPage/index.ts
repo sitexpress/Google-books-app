@@ -1,0 +1,1 @@
+export { SearchingResultPage } from "./SearchingResultPage"

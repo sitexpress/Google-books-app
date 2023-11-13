@@ -1,1 +1,1 @@
-export { SearchingBtn } from "./SearchingBtn";
+export { SearchingBtn } from "./SearchingBtn"

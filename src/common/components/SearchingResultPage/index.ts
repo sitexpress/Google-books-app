@@ -1,1 +1,0 @@
-export { SearchingResultPage } from "./SearchingResultPage";
