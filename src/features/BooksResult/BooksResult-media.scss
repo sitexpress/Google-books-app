@@ -1,65 +1,7 @@
-@include widescreen-xxl {
-  .grid {
-    width: 900px;
-  }
-  .paper {
-    width: 900px;
-  }
-}
-@include desktop-xl {
-  .grid {
-    width: 900px;
-  }
-  .paper {
-    width: 900px;
-  }
-}
-@include laptop-lg {
-  .grid {
-    width: 700px;
-  }
-  .paper {
-    width: 700px;
-  }
-}
-@include tablet-md {
-  .grid {
-    width: 500px;
-  }
-  .paper {
-    width: 500px;
-  }
-}
-@include mobile-sm {
-  .grid {
-    width: 450px;
-  }
-  .paper {
-    width: 450px;
-  }
-  .grid:hover {
-    box-shadow: none;
-    cursor: pointer;
-  }
-}
-@include mobile-xs {
-  .grid {
-    width: 300px;
-  }
-  .paper {
-    width: 300px;
-  }
-  .grid:hover {
-    box-shadow: none;
-    cursor: pointer;
-  }
-}
-@include mobile-xxs {
-  .grid {
-    width: 150px;
-  }
-  .grid:hover {
-    box-shadow: none;
-    cursor: pointer;
-  }
-}
+@include widescreen-xxl {}
+@include desktop-xl {}
+@include laptop-lg {}
+@include tablet-md {}
+@include mobile-sm {}
+@include mobile-xs {}
+@include mobile-xxs {}

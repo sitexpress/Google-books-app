@@ -1,5 +1,5 @@
 import * as React from "react"
-import { ChangeEvent, KeyboardEvent, FocusEvent, useState, memo, useEffect } from "react"
+import { ChangeEvent, FocusEvent, KeyboardEvent, memo, useEffect, useState } from "react"
 import TextField from "@mui/material/TextField"
 import { SearchingBtn } from "common/components/SearchingBtn"
 import { useAppDispatch, useAppSelector } from "store/store"
@@ -10,91 +10,97 @@ import { BooksCategoryType, BooksRelevanceType } from "common/types/types"
 import s from "./SearchingField.module.scss"
 
 interface SearchingFieldType {
-  location: "main" | "search-result-page"
+    location: "main" | "search-result-page"
 }
 
 export const SearchingField: React.FC<SearchingFieldType> = memo(({ location, ...other }) => {
-  const [inputError, setInputError] = useState(false)
-  const [inputValue, setInputValue] = useState("")
-  const dispatch = useAppDispatch()
-  const relevance = useAppSelector<BooksRelevanceType>((state) => state.books.books.booksRelevance)
-  const category = useAppSelector<BooksCategoryType>((state) => state.books.books.booksCategory)
+    const [inputError, setInputError] = useState(false)
+    const [inputValue, setInputValue] = useState("")
+    const dispatch = useAppDispatch()
+    const relevance = useAppSelector<BooksRelevanceType>((state) => state.books.books.booksRelevance)
+    const category = useAppSelector<BooksCategoryType>((state) => state.books.books.booksCategory)
+    const query = useAppSelector<string>((state) => state.books.books.query)
 
-  const onSetInputValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setInputError(false)
-    setInputValue(e.currentTarget.value)
-  }
-
-  const onSetInputValueKeyDownHandler = (e: KeyboardEvent<HTMLImageElement>) => {
-    if (e.key === "Enter" && !!inputValue) {
-      const pageNum = 0
-      const searchingBooksValue = inputValue.trim()
-      if (!!searchingBooksValue) {
+    const onSetInputValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setInputError(false)
-        dispatch(
-          fetchSearchingBookTC({
-            searchingBooksValue,
-            pageNum,
-            relevance,
-            category,
-            pagination: false
-          })
-        )
-      } else {
-        setInputError(true)
-      }
+        setInputValue(e.currentTarget.value)
+        localStorage.setItem("key_inputValue", JSON.stringify(inputValue))
+    }
+    console.log(inputValue)
+    const onSetInputValueKeyDownHandler = (e: KeyboardEvent<HTMLImageElement>) => {
+        if (e.key === "Enter" && !!inputValue) {
+            const pageNum = 0
+            const searchingBooksValue = inputValue.trim()
+            if (!!searchingBooksValue) {
+                setInputError(false)
+                dispatch(
+                    fetchSearchingBookTC({
+                        searchingBooksValue,
+                        pageNum,
+                        relevance,
+                        category,
+                        pagination: false
+                    })
+                )
+            } else {
+                setInputError(true)
+            }
+        }
+
+        if (e.key === "Enter" && !!inputValue === false) {
+            setInputError(true)
+        }
     }
 
-    if (e.key === "Enter" && !!inputValue === false) {
-      setInputError(true)
+    const onFocusInputValueHandler = (e: FocusEvent<HTMLInputElement>) => {
+        if (!e.currentTarget.value) {
+            setInputError(false)
+        }
     }
-  }
 
-  const onFocusInputValueHandler = (e: FocusEvent<HTMLInputElement>) => {
-    if (!e.currentTarget.value) {
-      setInputError(false)
-    }
-  }
+    useEffect(() => {
+        setInputValue(query)
+    }, [])
 
-  return (
-    <>
-      <div className={location === "main" ? s.searchingField_main : s.searchingField_result}>
-        <TextField
-          className={s.textfield}
-          value={inputValue}
-          error={inputError}
-          id="outlined-error-helper-text"
-          label="Введите название книги"
-          size="small"
-          onChange={onSetInputValueHandler}
-          onKeyDown={onSetInputValueKeyDownHandler}
-          onBlur={onFocusInputValueHandler}
-          helperText={inputError && <span className={s.helper_text}>Введите текст!</span>}
-          InputProps={{
-            endAdornment: !!inputValue && <ClearBtn setInputValue={setInputValue} />
-          }}
-        />
-        <SearchingBtn
-          inputValue={inputValue}
-          inputError={inputError}
-          setInputError={setInputError}
-          setInputValue={setInputValue}
-        />
-      </div>
-      <div className={location === "main" ? s.filter_container : s.filter_container_result}>
-        <SelectComponent selectType={"category"} />
-        <SelectComponent selectType={"relevance"} />
-      </div>
-      {location === "main" && (
-        <div>
-          <div>
-            <p>Search the world's most comprehensive index of full-text books.</p>
-          </div>
-          <div className={s.mylibrary}>
-            <p>My library. (in developing)</p>
-          </div>
-        </div>
-      )}
-    </>
-  )
+    return (
+        <>
+            <div className={location === "main" ? s.searchingField_main : s.searchingField_result}>
+                <TextField
+                    className={s.textfield}
+                    value={inputValue}
+                    error={inputError}
+                    id="outlined-error-helper-text"
+                    label="Введите название книги"
+                    size="small"
+                    onChange={onSetInputValueHandler}
+                    onKeyDown={onSetInputValueKeyDownHandler}
+                    onBlur={onFocusInputValueHandler}
+                    helperText={inputError && <span className={s.helper_text}>Введите текст!</span>}
+                    InputProps={{
+                        endAdornment: !!inputValue && <ClearBtn setInputValue={setInputValue} />
+                    }}
+                />
+                <SearchingBtn
+                    inputValue={inputValue}
+                    inputError={inputError}
+                    setInputError={setInputError}
+                    setInputValue={setInputValue}
+                />
+            </div>
+            <div className={location === "main" ? s.filter_container : s.filter_container_result}>
+                <SelectComponent selectType={"category"} />
+                <SelectComponent selectType={"relevance"} />
+            </div>
+            {location === "main" && (
+                <div>
+                    <div>
+                        <p>Search the world's most comprehensive index of full-text books.</p>
+                    </div>
+                    <div className={s.mylibrary}>
+                        <p>My library. (in developing)</p>
+                    </div>
+                </div>
+            )}
+        </>
+    )
 })

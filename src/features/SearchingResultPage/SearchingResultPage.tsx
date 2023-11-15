@@ -12,30 +12,32 @@ import s from "./SearchingResultPage.module.scss"
 import { BooksResult } from "../BooksResult"
 
 export const SearchingResultPage = () => {
-  const totalItems = useAppSelector<number | null>((state) => state.books.books.totalItems)
-  const isLoading = useAppSelector<boolean>((state) => state.books.books.isLoading)
+    const totalItems = useAppSelector<number | null>((state) => state.books.books.totalItems)
+    const isLoading = useAppSelector<boolean>((state) => state.books.books.isLoading)
 
-  return (
-    <>
-      {isLoading && <CircularProgress className={s.circ_bar} />}
+    return (
+        <>
+            {isLoading && <CircularProgress className={s.circ_bar} />}
 
-      <div className={s.search_result_wrapper}>
-        <Container maxWidth="lg" sx={{ minHeight: "100vh" }} className={s.search_result_container}>
-          <div>
-            <a href="/" className={s.btn_link}>
-              <Button sx={{ marginBottom: "20px" }} size={"medium"} variant={"contained"} className={s.btn_main_page}>
-                На главную
-              </Button>
-            </a>
+            <div className={s.search_result_wrapper}>
+                <Container sx={{ minHeight: "100vh" }} className={s.search_result_container}>
+                    <div>
+                        <a href="/" className={s.btn_link}>
+                            <Button size={"medium"} variant={"contained"} className={s.btn_main_page}>
+                                На главную
+                            </Button>
+                        </a>
 
-            <SearchingField location={"search-result-page"} />
-            <div className={s.total_text}>{totalItems !== null && <span>Найдено: {totalItems} книг.</span>}</div>
-          </div>
-          <div>
-            <BooksResult />
-          </div>
-        </Container>
-      </div>
-    </>
-  )
+                        <SearchingField location={"search-result-page"} />
+                        <div className={s.total_text}>
+                            {totalItems !== null && <span>Найдено: {totalItems} книг.</span>}
+                        </div>
+                    </div>
+                    <div className={s.books_result_container}>
+                        <BooksResult />
+                    </div>
+                </Container>
+            </div>
+        </>
+    )
 }

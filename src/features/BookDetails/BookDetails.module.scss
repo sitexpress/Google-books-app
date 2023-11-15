@@ -3,23 +3,22 @@
 .container {
   padding-top: 20px;
 }
+
 .grid {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  min-width: 640px;
+  justify-content: space-around;
   border: 2px solid transparent;
   border-radius: 5px;
   margin-bottom: 40px;
-}
-
-.text {
-  padding-right: 20px;
+  padding: 20px 20px 20px 20px;
+  background: rgba(0, 0, 0, 0.04);
+  width: 100%;
 }
 
 .img {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   & img {
@@ -33,28 +32,71 @@
   }
 }
 
+.title {
+  display: block;
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  h1 {
+    display: inline-block;
+    color: black;
+    font-size: 35px;
+    color: $palette_primary_main;
+    //text-shadow: 0px 0px 5px $palette_primary_main;
+    &:hover {
+      //text-shadow: 0px 0px 5px $palette_secondary_light;
+      color: $palette_secondary_light;
+      cursor: default;
+    }
+  }
+}
+
+.text {
+  display: block;
+  padding-right: 20px;
+  width: 100%;
+}
+
 .link {
   text-decoration: none;
   color: grey;
 }
-.title {
-  color: black;
-}
+
 
 .autors {
   margin-bottom: 10px;
   text-align: right;
+  h2 {
+    font-size: 16px;
+    p {
+      display: inline-block;
+    }
+  }
+
 }
 
 .year {
   text-align: right;
-  margin-bottom: 10px;
 }
 
 .descr {
-  text-align: justify;
+  display: block;
+  h2 {
+    font-size: 16px;
+    display: inline-block;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  p {
+    text-align: justify;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+
 }
 
 .btn_main_page {
-  margin-bottom: 20px;
 }
+
+@import "BookDetails-media";

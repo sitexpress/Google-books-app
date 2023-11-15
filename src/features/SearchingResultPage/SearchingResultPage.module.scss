@@ -3,6 +3,9 @@
 }
 
 .search_result_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding-top: 20px;
 }
 
@@ -26,4 +29,8 @@
   width: 100px;
   height: 100px;
   z-index: 10;
+}
+
+.books_result_container {
+
 }
