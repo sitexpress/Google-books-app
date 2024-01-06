@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../store/store"
 import { BooksResult } from "../BooksResult"
 import { Loader } from "../../common/components/Loader/Loader"
 import { useNavigate } from "react-router-dom"
-import { bookSearchingActions } from "../../store/bookSearchingSlice"
+import { bookSearchingActions } from "../SearchingField/bookSearchingSlice"
 import { selectIsLoading, selectTotalItems } from "./searchingResultPage.selector"
 
 import s from "./SearchingResultPage.module.scss"

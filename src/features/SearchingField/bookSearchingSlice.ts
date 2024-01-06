@@ -5,12 +5,12 @@ import {
     BooksRelevanceType,
     ErrorMessageType,
     ItemsType
-} from "../common/types/types"
-import { searchBooks } from "../features/SearchingField"
+} from "../../common/types/types"
+import { searchBooks } from "./index"
 import { createAppAsyncThunk } from "common/utils/createAppAsyncThunk"
 import { AxiosResponse } from "axios"
-import { appActions, appLoading } from "../app/appSlice"
-import { handleServerNetworkError } from "../common/utils/handle.server.network.error"
+import { appActions, appLoading } from "../../app/appSlice"
+import { handleServerNetworkError } from "../../common/utils/handle.server.network.error"
 
 export const fetchSearchingBookTC = createAppAsyncThunk<
     { books: BookSearchingSliceExtendedType; query: string; pagination: boolean },
@@ -39,14 +39,16 @@ export const fetchSearchingBookTC = createAppAsyncThunk<
 const initialState = {
     books: {
         items: [] as ItemsType[],
-        kind: "",
+        kind: "" as string,
         totalItems: null,
-        page: 0,
-        query: "",
+        page: 0 as number,
+        query: "" as string,
         booksRelevance: "relevance" as BooksRelevanceType,
         booksCategory: "all" as BooksCategoryType
     } as BookSearchingSliceExtendedType
 }
+
+export type BookSearchingStateType = typeof initialState
 
 const bookSearchingSlice = createSlice({
     name: "books",

@@ -3,7 +3,7 @@ import { ChangeEvent, FocusEvent, KeyboardEvent, memo, useEffect, useState } fro
 import TextField from "@mui/material/TextField"
 import { SearchingBtn } from "common/components/SearchingBtn"
 import { useAppDispatch, useAppSelector } from "store/store"
-import { fetchSearchingBookTC } from "store/bookSearchingSlice"
+import { fetchSearchingBookTC } from "features/SearchingField/bookSearchingSlice"
 import { SelectComponent } from "common/components/SelectComponent"
 import { ClearBtn } from "common/components/ClearBtn"
 import { BooksCategoryType, BooksRelevanceType } from "common/types/types"

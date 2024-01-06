@@ -57,5 +57,10 @@
     },
     "devDependencies": {
         "prettier": "3.0.3"
+    },
+    "jest": {
+        "transformIgnorePatterns": [
+            "node_modules/(?!axios)"
+        ]
     }
 }

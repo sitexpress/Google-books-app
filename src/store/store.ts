@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { bookSearchingReducer } from "./bookSearchingSlice"
+import { bookSearchingReducer } from "../features/SearchingField/bookSearchingSlice"
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist"
 import storage from "redux-persist/lib/storage" // defaults to localStorage for web
 import { appReducer } from "../app/appSlice"
@@ -27,7 +27,8 @@ export const store = configureStore({
         })
 })
 
-export const persistor = persistStore(store)
+const persistor = persistStore(store)
+export default persistor
 
 export type AppRootStateType = ReturnType<typeof store.getState>
 

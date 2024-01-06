@@ -6,7 +6,7 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 
-import { fetchSearchingBookTC } from "../../store/bookSearchingSlice"
+import { fetchSearchingBookTC } from "../SearchingField/bookSearchingSlice"
 import { useAppDispatch, useAppSelector } from "../../store/store"
 
 import s from "./BooksResult.module.scss"

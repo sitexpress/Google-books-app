@@ -7,7 +7,7 @@ const initialState = {
     isLoading: false,
     errorMessage: { message: "" } as ErrorMessageType
 }
-
+export type AppInitialStateType = typeof initialState
 export const appLoading = createAppAsyncThunk<{ isLoading: boolean }, { isLoading: boolean }>(
     "app/appLoading",
     async (payload, thunkAPI) => {
@@ -35,26 +35,7 @@ const appSlice = createSlice({
         setAppLoading: (state, action: PayloadAction<{ isLoading: boolean }>) => {
             state.isLoading = action.payload.isLoading
         }
-    },
-    extraReducers: {}
-    // extraReducers: (builder) => {
-    //     builder
-    //         .addCase(appLoading.pending, (state, action) => {
-    //             if (action.payload) {
-    //                 state.isLoading = true
-    //             }
-    //         })
-    //         .addCase(appLoading.rejected, (state, action) => {
-    //             if (action.payload) {
-    //                 state.isLoading = false
-    //             }
-    //         })
-    //         .addCase(appLoading.fulfilled, (state, action) => {
-    //             if (action.payload) {
-    //                 state.isLoading = false
-    //             }
-    //         })
-    // }
+    }
 })
 
 export const appReducer = appSlice.reducer
