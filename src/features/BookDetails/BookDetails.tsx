@@ -7,14 +7,14 @@ import Container from "@mui/material/Container"
 import Divider from "@mui/material/Divider"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import Button from "@mui/material/Button"
+import { appActions } from "../../app/appSlice"
 
 export const BookDetails = () => {
     const { state } = useLocation()
     const navigate = useNavigate()
 
     const onNavigateHandler = () => {
-        console.log("navClicked")
-        return navigate("/search-result-page")
+        navigate("/search-result-page")
     }
 
     return (
@@ -22,27 +22,28 @@ export const BookDetails = () => {
             <Button size={"medium"} variant={"contained"} className={s.btn_main_page} onClick={onNavigateHandler}>
                 <ArrowBackIcon />
             </Button>
-            <Typography className={s.title}>
-                <h1>{state.book.volumeInfo.title}</h1>
+            <Typography variant="h1" className={s.title}>
+                <span>{state.book.volumeInfo.title}</span>
             </Typography>
             <div className={s.grid}>
                 <div className={s.text}>
-                    <Typography variant="body2" className={s.descr}>
-                        <h2 className={s.descr_heading}>Описание:</h2>
-                        <p className={s.descr_text}>{state.book.volumeInfo?.description}</p>
+                    <Typography variant="body2" color="text.secondary" className={s.descr}>
+                        <span className={s.heading}>Описание:</span>
+                        <span className={s.text}>{state.book.volumeInfo?.description}</span>
                     </Typography>
 
                     <Typography className={s.year} color="text.secondary">
-                        <h3>{state.book.volumeInfo.publishedDate?.slice(0, 4)} года</h3>
+                        <span>{state.book.volumeInfo.publishedDate?.slice(0, 4)} года</span>
                     </Typography>
+
                     <Typography className={s.autors} color="text.secondary">
-                        <h2>
-                            <p>Полный список авторов: &nbsp;</p>
+                        <span>Полный список авторов: &nbsp;</span>
+                        <span>
                             {state.book.volumeInfo.authors &&
                                 state.book.volumeInfo.authors.map((autor: string, i: number) =>
                                     state.book.volumeInfo.authors.length - 1 === i ? autor : `${autor}, `
                                 )}
-                        </h2>
+                        </span>
                         &nbsp;
                     </Typography>
                 </div>

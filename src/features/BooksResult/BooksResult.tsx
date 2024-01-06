@@ -6,7 +6,7 @@ import Button from "@mui/material/Button"
 import Typography from "@mui/material/Typography"
 import Paper from "@mui/material/Paper"
 
-import { fetchSearchingBookTC, isLoadingTC } from "../../store/bookSearchingSlice"
+import { fetchSearchingBookTC } from "../../store/bookSearchingSlice"
 import { useAppDispatch, useAppSelector } from "../../store/store"
 
 import s from "./BooksResult.module.scss"
@@ -14,25 +14,34 @@ import noImage from "../../assets/images/No-Image-Placeholder.png"
 import { BooksCategoryType, BooksRelevanceType, ItemsType } from "../../common/types/types"
 import { v4 } from "uuid"
 import { useNavigate } from "react-router-dom"
+import {
+    selectBookCategory,
+    selectBookRelevance,
+    selectorBooksItems,
+    selectorIsLoading,
+    selectorQuery,
+    selectorTotalItems
+} from "./booksResult.selector"
+import { appActions, appLoading } from "../../app/appSlice"
 
-export const BooksResult = memo(() => {
+export const BooksResult = () => {
     const [pageNumState, setPageNumState] = useState<number>(31)
-    // const [booksItemsLC, setBooksItemsLC] = useState([])
-    const booksItems = useAppSelector<ItemsType[]>((state) => state.books.books.items)
-    const totalItems = useAppSelector<number | null>((state) => state.books.books.totalItems)
-    const isLoading = useAppSelector<boolean>((state) => state.books.books.isLoading)
-    const searchingBooksValue = useAppSelector<string>((state) => state.books.books.query)
-    const dispatch = useAppDispatch()
-    const relevance = useAppSelector<BooksRelevanceType>((state) => state.books.books.booksRelevance)
-    const category = useAppSelector<BooksCategoryType>((state) => state.books.books.booksCategory)
+    const booksItems = useAppSelector<ItemsType[]>(selectorBooksItems)
+    const totalItems = useAppSelector<number | null>(selectorTotalItems)
+    const isLoading = useAppSelector<boolean>(selectorIsLoading)
+    const query = useAppSelector<string>(selectorQuery)
+    const relevance = useAppSelector<BooksRelevanceType>(selectBookRelevance)
+    const category = useAppSelector<BooksCategoryType>(selectBookCategory)
 
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const onChangePageHandler = () => {
-        searchingBooksValue &&
+        dispatch(appLoading({ isLoading: true }))
+        query &&
             dispatch(
                 fetchSearchingBookTC({
-                    searchingBooksValue,
+                    query,
                     pageNum: pageNumState,
                     relevance,
                     category,
@@ -44,19 +53,13 @@ export const BooksResult = memo(() => {
     }
 
     const bookDetailsNavigateHandler = (book: ItemsType) => {
-        dispatch(isLoadingTC(true))
+        dispatch(appActions.setAppLoading({ isLoading: true }))
+        dispatch(appLoading({ isLoading: true }))
         navigate("/book-details-page", {
             state: { book }
         })
-        dispatch(isLoadingTC(false))
+        dispatch(appActions.setAppLoading({ isLoading: false }))
     }
-
-    useEffect(() => {
-        const item = localStorage.getItem("key_book")
-        const booksItemsParsed = !!item && JSON.parse(item)
-        // setBooksItemsLC(booksItemsParsed)
-        console.log(booksItemsParsed)
-    }, [])
 
     return (
         <>
@@ -114,7 +117,7 @@ export const BooksResult = memo(() => {
                     })
                 )}
             </Grid>
-            {!!totalItems && (
+            {!!totalItems && +totalItems > 30 && (
                 <Grid className={s.pagination_btn_container}>
                     <Button className={s.pagination_btn} size={"large"} onClick={onChangePageHandler}>
                         ЗАГРУЗИТЬ ЕЩЁ
@@ -123,4 +126,4 @@ export const BooksResult = memo(() => {
             )}
         </>
     )
-})
+}

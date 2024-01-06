@@ -1,18 +1,36 @@
-import { AnyAction, configureStore, ThunkAction, ThunkDispatch } from "@reduxjs/toolkit"
+import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { searchingBooksReducer } from "./bookSearchingSlice"
+import { bookSearchingReducer } from "./bookSearchingSlice"
+import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist"
+import storage from "redux-persist/lib/storage" // defaults to localStorage for web
+import { appReducer } from "../app/appSlice"
 
-export const store = configureStore({
-  reducer: {
-    books: searchingBooksReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-    }),
+const persistConfig = {
+    key: "root",
+    storage
+}
+
+const rootReducer = combineReducers({
+    app: appReducer,
+    books: bookSearchingReducer
 })
 
+const persistedReducer = persistReducer(persistConfig, rootReducer)
+
+export const store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+            }
+        })
+})
+
+export const persistor = persistStore(store)
+
 export type AppRootStateType = ReturnType<typeof store.getState>
-export type AppThunkDispatch = ThunkDispatch<AppRootStateType, any, AnyAction>
-export const useAppDispatch = () => useDispatch<AppThunkDispatch>()
+
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

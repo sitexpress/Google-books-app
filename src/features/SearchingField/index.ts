@@ -1,2 +1,2 @@
 export { SearchingField } from "./SearchingField"
-export { searchBooks } from "./SearchingField-api"
+export { searchBooks } from "./SearchingField.api"

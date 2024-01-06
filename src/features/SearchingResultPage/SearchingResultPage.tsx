@@ -1,32 +1,46 @@
 import React, { useState } from "react"
-import CssBaseline from "@mui/material/CssBaseline"
 import Container from "@mui/material/Container"
 import Button from "@mui/material/Button"
 import { SearchingField } from "../SearchingField/SearchingField"
-import { useAppSelector } from "../../store/store"
-import CircularProgress from "@mui/material/CircularProgress"
-import Divider from "@mui/material/Divider"
-import Chip from "@mui/material/Chip"
+import { useAppDispatch, useAppSelector } from "../../store/store"
+import { BooksResult } from "../BooksResult"
+import { Loader } from "../../common/components/Loader/Loader"
+import { useNavigate } from "react-router-dom"
+import { bookSearchingActions } from "../../store/bookSearchingSlice"
+import { selectIsLoading, selectTotalItems } from "./searchingResultPage.selector"
 
 import s from "./SearchingResultPage.module.scss"
-import { BooksResult } from "../BooksResult"
+import { appActions, appLoading } from "../../app/appSlice"
 
 export const SearchingResultPage = () => {
-    const totalItems = useAppSelector<number | null>((state) => state.books.books.totalItems)
-    const isLoading = useAppSelector<boolean>((state) => state.books.books.isLoading)
+    const totalItems = useAppSelector<number | null>(selectTotalItems)
+    const isLoading = useAppSelector<boolean>(selectIsLoading)
+
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+
+    const onMainPageHandler = () => {
+        dispatch(bookSearchingActions.resetAllState())
+        navigate("/")
+    }
 
     return (
         <>
-            {isLoading && <CircularProgress className={s.circ_bar} />}
+            {isLoading && <Loader className={s.circBar_container} />}
 
             <div className={s.search_result_wrapper}>
                 <Container sx={{ minHeight: "100vh" }} className={s.search_result_container}>
                     <div>
-                        <a href="/" className={s.btn_link}>
-                            <Button size={"medium"} variant={"contained"} className={s.btn_main_page}>
+                        <div className={s.btn_link}>
+                            <Button
+                                size={"medium"}
+                                variant={"contained"}
+                                className={s.btn_main_page}
+                                onClick={onMainPageHandler}
+                            >
                                 На главную
                             </Button>
-                        </a>
+                        </div>
 
                         <SearchingField location={"search-result-page"} />
                         <div className={s.total_text}>

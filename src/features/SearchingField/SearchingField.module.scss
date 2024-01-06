@@ -28,9 +28,6 @@
   left: 5px;
 }
 
-.mylibrary:hover {
-  text-decoration: underline;
-}
 
 .filter_container {
   display: flex;
@@ -44,13 +41,34 @@
   justify-content: flex-start;
 }
 
-.mylibrary {
-  padding-top: 20px;
-  font-size: 14px;
-  color: $palette_primary_light;
-  cursor: pointer;
+descr {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 
-@import "SearchingField-media";
+.text {
+  p {
+    display: inline-block;
+  }
+}
+
+.mylibrary {
+  p {
+    display: inline-block;
+    padding-top: 20px;
+    font-size: 14px;
+    color: $palette_primary_light;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+}
+
+@import "SearchingField.media";
 
 

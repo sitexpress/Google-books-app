@@ -35,16 +35,13 @@
 .title {
   display: block;
   text-align: center;
-  padding-top: 20px;
   margin-bottom: 20px;
-  h1 {
+  span{
     display: inline-block;
     color: black;
     font-size: 35px;
     color: $palette_primary_main;
-    //text-shadow: 0px 0px 5px $palette_primary_main;
     &:hover {
-      //text-shadow: 0px 0px 5px $palette_secondary_light;
       color: $palette_secondary_light;
       cursor: default;
     }
@@ -53,7 +50,6 @@
 
 .text {
   display: block;
-  padding-right: 20px;
   width: 100%;
 }
 
@@ -62,41 +58,34 @@
   color: grey;
 }
 
-
 .autors {
   margin-bottom: 10px;
   text-align: right;
-  h2 {
-    font-size: 16px;
-    p {
-      display: inline-block;
-    }
-  }
-
+  padding-right: 20px;
 }
 
 .year {
   text-align: right;
+  padding-right: 20px;
+
 }
 
 .descr {
   display: block;
-  h2 {
-    font-size: 16px;
-    display: inline-block;
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  p {
-    text-align: justify;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-
-
+  padding-right: 20px;
 }
 
-.btn_main_page {
+.heading{
+  font-size: 16px;
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
-@import "BookDetails-media";
+.text {
+  text-align: justify;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+@import "BookDetails.media";
